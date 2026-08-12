@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HEXER — Receive Payout</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;background:linear-gradient(135deg,#f7fbff,#e9f4ff);color:#102a43;display:flex;flex-direction:column;align-items:center}
+.brand{margin-top:48px;color:#0874d9;font-size:31px;font-weight:800;letter-spacing:2px}
+.card{width:min(470px,calc(100% - 30px));margin:28px auto;padding:32px;background:rgba(255,255,255,.9);border:1px solid rgba(255,255,255,.95);border-radius:20px;box-shadow:0 20px 60px rgba(15,78,125,.14);backdrop-filter:blur(16px)}
+h1{text-align:center;font-size:25px;margin:0 0 8px}
+.sub{text-align:center;color:#6b7d90;margin:0 0 25px}
+.amount{text-align:center;font-size:44px;font-weight:800;color:#0874d9;margin:8px 0 27px}
+.section-title{font-size:14px;font-weight:700;margin-bottom:12px}
+.option{width:100%;display:flex;align-items:center;gap:14px;padding:16px;margin:10px 0;border:1px solid #d4e0eb;border-radius:13px;background:#fff;cursor:pointer;transition:.18s ease}
+.option:hover{border-color:#0874d9;transform:translateY(-1px);box-shadow:0 6px 18px rgba(8,116,217,.09)}
+.option input{accent-color:#0874d9;width:18px;height:18px}
+.icon{width:43px;height:43px;border-radius:11px;display:grid;place-items:center;font-weight:800;font-size:14px}
+.card-icon{background:#eef4fa;color:#315a7d}
+.cash-icon{background:#e9fff1;color:#16a05a}
+.hexer-icon{background:#e7f3ff;color:#0874d9}
+.name{font-weight:700}
+.desc{font-size:12px;color:#718096;margin-top:3px}
+.continue{width:100%;height:50px;border:0;border-radius:25px;margin-top:20px;background:#0874d9;color:#fff;font-size:16px;font-weight:700;cursor:pointer}
+.continue:hover{background:#075eaf}
+.demo{margin-top:13px;text-align:center;font-size:11px;color:#8a99a8}
+footer{margin:0 20px 28px;text-align:center;color:#637589;font-size:12px;line-height:1.8}
+</style>
+</head>
+<body>
+<div class="brand">HEXER</div>
+
+<main class="card">
+  <h1>Receive payout</h1>
+  <p class="sub">Choose where you'd like to receive your payout.</p>
+
+  <div class="amount">$20.00</div>
+
+  <form method="post" action="{{ url_for('payout_select') }}"><div class="section-title">Select payment method</div>
+
+  <label class="option">
+    <input type="radio" name="method" value="card" checked>
+    <span class="icon card-icon">▣</span>
+    <span>
+      <div class="name">Credit Card</div>
+      <div class="desc">Receive through a supported card</div>
+    </span>
+  </label>
+
+  <label class="option">
+    <input type="radio" name="method" value="cashland">
+    <span class="icon cash-icon">$</span>
+    <span>
+      <div class="name">Cash Land</div>
+      <div class="desc">Cash-style digital payout option</div>
+    </span>
+  </label>
+
+  <label class="option">
+    <input type="radio" name="method" value="hexer">
+    <span class="icon hexer-icon">H</span>
+    <span>
+      <div class="name">HEXER</div>
+      <div class="desc">Receive directly through HEXER</div>
+    </span>
+  </label>
+
+  <button class="continue" type="submit">Continue</button></form>
+  <div class="demo" id="status">Demo payout interface — no payment details are collected.</div>
+</main>
+
+<footer>
+  Help · Contact · Privacy · Terms · Security<br>
+  © 2026 HEXER. All rights reserved.
+</footer>
+
+
+</body>
+</html>
