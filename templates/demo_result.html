@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HEXER — Demo</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="brand">HEXER</div>
+<main class="card center">
+  <h1>Demo sign-in received</h1>
+  <p class="muted">The server received the identifier <strong>{{ email }}</strong>.</p>
+  <p class="note">For safety, this demo intentionally does not accept, log, or store passwords.</p>
+  <a class="button secondary" href="{{ url_for('login') }}">Return</a>
+</main>
+<footer>Help · Contact · Privacy · Terms · Security<br>© 2026 HEXER. All rights reserved.</footer>
+</body>
+</html>

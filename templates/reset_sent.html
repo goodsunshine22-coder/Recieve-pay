@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HEXER — Check your email</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="brand">HEXER</div>
+<main class="card center">
+  <div class="check">✓</div>
+  <h1>Check your inbox</h1>
+  <p class="muted">If an account exists for <strong>{{ email }}</strong>, a password-reset message would be sent here in a production implementation.</p>
+  <p class="note">This demo does not send email or change passwords.</p>
+  <a class="button secondary" href="{{ url_for('login') }}">Back to sign in</a>
+</main>
+<footer>Help · Contact · Privacy · Terms · Security<br>© 2026 HEXER. All rights reserved.</footer>
+</body>
+</html>
