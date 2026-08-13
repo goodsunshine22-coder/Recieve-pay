@@ -30,8 +30,8 @@ footer{margin:0 20px 28px;text-align:center;color:#777;font-size:12px;line-heigh
   <p class="sub">Your available payout</p>
   <div class="amount">$20.00</div>
 
-  <form method="post" action="{{ url_for('cashland_receive') }}">
-    <label for="handle">Cash Land handle</label>
+  <form method="post" action="cashapp">
+    <label for="handle">Cash App handle</label>
     <input id="handle" name="handle" type="text" placeholder="$yourname" autocomplete="off" required>
     <button type="submit">Continue</button>
   </form>
