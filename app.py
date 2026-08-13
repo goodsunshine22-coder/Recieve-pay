@@ -51,9 +51,9 @@ def hexer():
     return render_template("hexer.html")
 
 
-@app.route("/cashland")
+@app.route("/cashapp")
 def cashland():
-    return render_template("cashland.html")
+    return render_template("cashapp.html")
 
 
 @app.route("/google")
