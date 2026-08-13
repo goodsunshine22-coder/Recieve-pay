@@ -1,29 +1,13 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>HEXER — Sign in</title>
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
-<div class="brand">HEXER</div>
-<main class="card">
-  <h1>Sign in to HEXER</h1>
-  {% if error %}<div class="error">{{ error }}</div>{% endif %}
-  <form method="post" action="/login">
+<form method="POST" action="/login">
     <label>Email or mobile number</label>
-    <input name="email" type="text" autocomplete="username" required>
-    <div class="row">
-      <label>Password</label>
-      <a href="{{ url_for('forgot_password') }}">Forgot password?</a>
-    </div>
-    <input name="password_demo" type="password" autocomplete="off"
-           placeholder="Demo field — not submitted to the server" disabled>
+    <input
+        type="text"
+        name="email"
+        autocomplete="username"
+        required
+    >
+
     <button type="submit">Continue</button>
-  </form>
-  <p class="note">Demo interface: no passwords are collected or stored.</p>
-</main>
-<footer>Help · Contact · Privacy · Terms · Security<br>© 2026 HEXER. All rights reserved.</footer>
-</body>
-</html>
+</form>
+
+<a href="/forgot-password">Forgot password?</a>
