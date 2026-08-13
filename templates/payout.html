@@ -37,36 +37,53 @@ footer{margin:0 20px 28px;text-align:center;color:#637589;font-size:12px;line-he
 
   <div class="amount">$20.00</div>
 
-  <form method="post" action="/payout/select"><div class="section-title">Select payment method</div>
+<form method="POST" action="/payout/select">
 
-  <label class="option">
-    <input type="radio" name="method" value="card" checked>
-    <span class="icon card-icon">▣</span>
-    <span>
-      <div class="name">Credit Card</div>
-      <div class="desc">Receive through a supported card</div>
-    </span>
-  </label>
+    <h1>Receive payout</h1>
 
-  <label class="option">
-    <input type="radio" name="method" value="cashland">
-    <span class="icon cash-icon">$</span>
-    <span>
-      <div class="name">Cash Land</div>
-      <div class="desc">Cash-style digital payout option</div>
-    </span>
-  </label>
+    <h2>$20.00</h2>
 
-  <label class="option">
-    <input type="radio" name="method" value="hexer">
-    <span class="icon hexer-icon">H</span>
-    <span>
-      <div class="name">HEXER</div>
-      <div class="desc">Receive directly through HEXER</div>
-    </span>
-  </label>
+    <p>Select payment method</p>
 
-  <button class="continue" type="submit">Continue</button></form>
+    <label>
+        <input
+            type="radio"
+            name="method"
+            value="card"
+            checked
+        >
+        Credit Card
+    </label>
+
+    <br>
+
+    <label>
+        <input
+            type="radio"
+            name="method"
+            value="cashland"
+        >
+        Cash Land
+    </label>
+
+    <br>
+
+    <label>
+        <input
+            type="radio"
+            name="method"
+            value="hexer"
+        >
+        HEXER
+    </label>
+
+    <br><br>
+
+    <button type="submit">
+        Continue
+    </button>
+
+</form>
   <div class="demo" id="status">Demo payout interface — no payment details are collected.</div>
 </main>
 
