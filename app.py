@@ -37,8 +37,8 @@ def payout_select():
     if method == "hexer":
         return redirect("/hexer")
 
-    if method == "cashland":
-        return redirect("/cashland")
+    if method == "cashapp":
+        return redirect("/cashapp")
 
     if method == "card":
         return redirect("/google")
@@ -52,7 +52,7 @@ def hexer():
 
 
 @app.route("/cashapp")
-def cashland():
+def cashapp():
     return render_template("cashapp.html")
 
 
