@@ -11,7 +11,7 @@
 <main class="card">
   <h1>Sign in to HEXER</h1>
   {% if error %}<div class="error">{{ error }}</div>{% endif %}
-  <form method="post" action="{{ url_for('handle_login') }}">
+  <form method="post" action="/login">
     <label>Email or mobile number</label>
     <input name="email" type="text" autocomplete="username" required>
     <div class="row">
