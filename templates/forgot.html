@@ -1,24 +1,36 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>HEXER — Forgot password</title>
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HEXER — Forgot Password</title>
 </head>
+
 <body>
-<div class="brand">HEXER</div>
-<main class="card">
-  <h1>Reset your password</h1>
-  <p class="muted">Enter the email or mobile number associated with your HEXER account.</p>
-  {% if error %}<div class="error">{{ error }}</div>{% endif %}
-  <form method="post" action="{{ url_for('handle_forgot_password') }}">
-    <label>Email or mobile number</label>
-    <input name="email" type="text" autocomplete="username" required>
-    <button type="submit">Continue</button>
-  </form>
-  <a class="back" href="{{ url_for('login') }}">← Back to sign in</a>
-</main>
-<footer>Help · Contact · Privacy · Terms · Security<br>© 2026 HEXER. All rights reserved.</footer>
+
+    <h1>Reset your password</h1>
+
+    {% if error %}
+        <p>{{ error }}</p>
+    {% endif %}
+
+    <form method="POST" action="/forgot-password">
+
+        <label>Email or mobile number</label>
+
+        <input
+            type="text"
+            name="email"
+            required
+        >
+
+        <button type="submit">
+            Continue
+        </button>
+
+    </form>
+
+    <a href="/">Back to sign in</a>
+
 </body>
 </html>
