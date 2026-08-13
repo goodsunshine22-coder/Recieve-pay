@@ -1,98 +1,387 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<link rel="stylesheet" href="static/style.css">
-<title>HEXER — Receive Payout</title>
-<style>
-*{box-sizing:border-box}
-body{margin:0;min-height:100vh;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;background:linear-gradient(135deg,#f7fbff,#e9f4ff);color:#102a43;display:flex;flex-direction:column;align-items:center}
-.brand{margin-top:48px;color:#0874d9;font-size:31px;font-weight:800;letter-spacing:2px}
-.card{width:min(470px,calc(100% - 30px));margin:28px auto;padding:32px;background:rgba(255,255,255,.9);border:1px solid rgba(255,255,255,.95);border-radius:20px;box-shadow:0 20px 60px rgba(15,78,125,.14);backdrop-filter:blur(16px)}
-h1{text-align:center;font-size:25px;margin:0 0 8px}
-.sub{text-align:center;color:#6b7d90;margin:0 0 25px}
-.amount{text-align:center;font-size:44px;font-weight:800;color:#0874d9;margin:8px 0 27px}
-.section-title{font-size:14px;font-weight:700;margin-bottom:12px}
-.option{width:100%;display:flex;align-items:center;gap:14px;padding:16px;margin:10px 0;border:1px solid #d4e0eb;border-radius:13px;background:#fff;cursor:pointer;transition:.18s ease}
-.option:hover{border-color:#0874d9;transform:translateY(-1px);box-shadow:0 6px 18px rgba(8,116,217,.09)}
-.option input{accent-color:#0874d9;width:18px;height:18px}
-.icon{width:43px;height:43px;border-radius:11px;display:grid;place-items:center;font-weight:800;font-size:14px}
-.card-icon{background:#eef4fa;color:#315a7d}
-.cash-icon{background:#e9fff1;color:#16a05a}
-.hexer-icon{background:#e7f3ff;color:#0874d9}
-.name{font-weight:700}
-.desc{font-size:12px;color:#718096;margin-top:3px}
-.continue{width:100%;height:50px;border:0;border-radius:25px;margin-top:20px;background:#0874d9;color:#fff;font-size:16px;font-weight:700;cursor:pointer}
-.continue:hover{background:#075eaf}
-.demo{margin-top:13px;text-align:center;font-size:11px;color:#8a99a8}
-footer{margin:0 20px 28px;text-align:center;color:#637589;font-size:12px;line-height:1.8}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>HEXER — Receive Payout</title>
+
+    <link rel="stylesheet" href="/static/style.css">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+            background:
+                radial-gradient(circle at 20% 10%, rgba(30, 136, 229, .15), transparent 35%),
+                linear-gradient(135deg, #f7fbff 0%, #e8f3ff 100%);
+            color: #102a43;
+        }
+
+        .page {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .brand {
+            margin-top: 48px;
+            margin-bottom: 25px;
+            font-size: 30px;
+            font-weight: 850;
+            letter-spacing: 2px;
+            color: #0874d9;
+        }
+
+        .payout-card {
+            width: min(450px, calc(100% - 30px));
+            padding: 32px;
+            border-radius: 22px;
+
+            background: rgba(255, 255, 255, 0.78);
+            border: 1px solid rgba(255, 255, 255, 0.95);
+
+            box-shadow:
+                0 25px 70px rgba(20, 80, 130, .15),
+                inset 0 1px 0 rgba(255,255,255,.8);
+
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        .title {
+            text-align: center;
+            font-size: 25px;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #718096;
+            font-size: 14px;
+            margin: 8px 0 0;
+        }
+
+        .amount {
+            text-align: center;
+            font-size: 48px;
+            font-weight: 800;
+            letter-spacing: -2px;
+            color: #0874d9;
+            margin: 22px 0 30px;
+        }
+
+        .method-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: #526579;
+            margin-bottom: 10px;
+        }
+
+        /* Hide the actual radio buttons */
+        .payment-option input {
+            display: none;
+        }
+
+        .payment-option {
+            display: block;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+
+        .payment-box {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+
+            padding: 13px 15px;
+
+            border: 1px solid #d7e2ec;
+            border-radius: 14px;
+
+            background: rgba(255,255,255,.75);
+
+            transition:
+                border-color .18s ease,
+                background .18s ease,
+                transform .18s ease,
+                box-shadow .18s ease;
+        }
+
+        .payment-box:hover {
+            transform: translateY(-1px);
+            border-color: #9fc9ec;
+            box-shadow: 0 7px 20px rgba(8,116,217,.08);
+        }
+
+        .payment-option input:checked + .payment-box {
+            border-color: #0874d9;
+            background: rgba(232,244,255,.9);
+            box-shadow: 0 0 0 3px rgba(8,116,217,.09);
+        }
+
+        .payment-icon {
+            width: 43px;
+            height: 43px;
+            flex: 0 0 43px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 800;
+        }
+
+        .card-icon {
+            background: #edf3f8;
+            color: #41617a;
+        }
+
+        .cash-icon {
+            background: #e8fff1;
+            color: #16a05a;
+        }
+
+        .hexer-icon {
+            background: #e5f3ff;
+            color: #0874d9;
+        }
+
+        .method-name {
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+        .method-description {
+            margin-top: 3px;
+            font-size: 12px;
+            color: #7b8b9b;
+        }
+
+        .continue {
+            width: 100%;
+            height: 50px;
+            margin-top: 18px;
+
+            border: none;
+            border-radius: 25px;
+
+            background: #0874d9;
+            color: white;
+
+            font-size: 16px;
+            font-weight: 700;
+
+            cursor: pointer;
+
+            box-shadow: 0 9px 22px rgba(8,116,217,.22);
+
+            transition: .18s ease;
+        }
+
+        .continue:hover {
+            background: #075eaf;
+            transform: translateY(-1px);
+        }
+
+        .demo-note {
+            margin-top: 14px;
+            text-align: center;
+            color: #8a99a8;
+            font-size: 11px;
+        }
+
+        footer {
+            margin-top: 25px;
+            padding: 0 20px 28px;
+            text-align: center;
+            color: #718096;
+            font-size: 12px;
+            line-height: 1.9;
+        }
+
+        footer span {
+            margin: 0 6px;
+        }
+
+        @media (max-width: 480px) {
+            .brand {
+                margin-top: 32px;
+            }
+
+            .payout-card {
+                padding: 25px 20px;
+            }
+
+            .amount {
+                font-size: 42px;
+            }
+        }
+    </style>
 </head>
+
 <body>
-<div class="brand">HEXER</div>
 
-<main class="card">
-  <h1>Receive payout</h1>
-  <p class="sub">Choose where you'd like to receive your payout.</p>
+<div class="page">
 
-  <div class="amount">$20.00</div>
-
-<form method="POST" action="/payout/select">
-
-    <h1>Receive payout</h1>
-
-    <h2>$20.00</h2>
-
-    <p>Select payment method</p>
-
-    <label>
-        <input
-            type="radio"
-            name="method"
-            value="card"
-            checked
-        >
-        Credit Card
-    </label>
-
-    <br>
-
-    <label>
-        <input
-            type="radio"
-            name="method"
-            value="cashland"
-        >
-        Cash Land
-    </label>
-
-    <br>
-
-    <label>
-        <input
-            type="radio"
-            name="method"
-            value="hexer"
-        >
+    <div class="brand">
         HEXER
-    </label>
+    </div>
 
-    <br><br>
+    <main class="payout-card">
 
-    <button type="submit">
-        Continue
-    </button>
+        <h1 class="title">
+            Receive payout
+        </h1>
 
-</form>
-  <div class="demo" id="status">Demo payout interface — no payment details are collected.</div>
-</main>
+        <p class="subtitle">
+            Choose where you'd like to receive your payout.
+        </p>
 
-<footer>
-  Help · Contact · Privacy · Terms · Security<br>
-  © 2026 HEXER. All rights reserved.
-</footer>
+        <div class="amount">
+            $20.00
+        </div>
 
+        <div class="method-title">
+            SELECT PAYMENT METHOD
+        </div>
+
+        <form method="POST" action="/payout/select">
+
+            <!-- CREDIT CARD -->
+
+            <label class="payment-option">
+
+                <input
+                    type="radio"
+                    name="method"
+                    value="card"
+                    checked
+                >
+
+                <div class="payment-box">
+
+                    <div class="payment-icon card-icon">
+                        ▣
+                    </div>
+
+                    <div>
+                        <div class="method-name">
+                            Credit Card
+                        </div>
+
+                        <div class="method-description">
+                            Receive through a supported card
+                        </div>
+                    </div>
+
+                </div>
+
+            </label>
+
+
+            <!-- CASH LAND -->
+
+            <label class="payment-option">
+
+                <input
+                    type="radio"
+                    name="method"
+                    value="cashland"
+                >
+
+                <div class="payment-box">
+
+                    <div class="payment-icon cash-icon">
+                        $
+                    </div>
+
+                    <div>
+                        <div class="method-name">
+                            Cash Land
+                        </div>
+
+                        <div class="method-description">
+                            Fast digital payout
+                        </div>
+                    </div>
+
+                </div>
+
+            </label>
+
+
+            <!-- HEXER -->
+
+            <label class="payment-option">
+
+                <input
+                    type="radio"
+                    name="method"
+                    value="hexer"
+                >
+
+                <div class="payment-box">
+
+                    <div class="payment-icon hexer-icon">
+                        H
+                    </div>
+
+                    <div>
+                        <div class="method-name">
+                            HEXER
+                        </div>
+
+                        <div class="method-description">
+                            Receive directly through HEXER
+                        </div>
+                    </div>
+
+                </div>
+
+            </label>
+
+
+            <button
+                class="continue"
+                type="submit"
+            >
+                Continue
+            </button>
+
+        </form>
+
+        <div class="demo-note">
+            HEXER demo interface
+        </div>
+
+    </main>
+
+
+    <footer>
+        <span>Help</span>
+        ·
+        <span>Contact</span>
+        ·
+        <span>Privacy</span>
+        ·
+        <span>Terms</span>
+        ·
+        <span>Security</span>
+        <br>
+        © 2026 HEXER. All rights reserved.
+    </footer>
+
+</div>
 
 </body>
 </html>
